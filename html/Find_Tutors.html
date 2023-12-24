@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.css" rel="stylesheet"> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <header class="bg-stone-500 p-4 flex justify-between">
+        <img src="../logo/memariyacom-logos_black.png" alt="memariya.com_logo" class="logo">
+        <nav>
+            <ul class="flex space-x-3 md:space-x-4 ">
+                <li><a href="Home.html" class="text-white">Home</a></li>
+                <li><a href="Dashboard.html" class="text-white">Dashboard</a></li>
+                <li><a href="Courses.html" class="text-white">Courses</a></li>
+                <li><a href="Quizzes.html" class="text-white">Quizzes</a></li>
+                <li><a href="Find_Tutors.html" class="text-white">Find Tutors</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mx-auto my-8">
+        <section class="p-4 bg-white shadow-md mx-auto">
+            <h2 class="text-2xl font-bold text-center">
+                Enjoy what a premium account has to offer by contacting competent tutors and instructors
+            </h2>
+            <p class="mt-4 text-center">
+                Select a given course and click the "Display Tutors" button to find a tutor of your choice.
+            </p>
+
+            <div class="container md:w-2/3 mx-auto w-full my-10">
+
+                <div class="mt-4 mx-4 flex items-center space-x-4 justify-between">
+                    <label class="block">
+                        <select name="" id="" class="border p-2 rounded">
+                            <option value="">Courses</option>
+                            <option value="1">Python</option>
+                            <option value="2">JavaScript</option>
+                            <option value="3">HTML and CSS</option>
+                            <option value="4">C++</option>
+                        </select>
+                    </label>
+                    <button class="bg-blue-500 text-white p-2 rounded">
+                        Display Tutors
+                    </button>
+                </div>
+                
+                <div class="mt-4 mx-4 grid grid-cols-1  gap-4">
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-gray-300 mr-4"></div>
+                        <div>
+                            <h3 class="text-lg font-bold">John Doe</h3>
+                            <p>Expertise: STHSTh</p>
+                            <p>Username: foobarfoo</p>
+                            <p>Average Rating: 4.5</p>
+                            <p>Contact Info: Email: john.doe@example.com</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-gray-300 mr-4"></div>
+                        <div>
+                            <h3 class="text-lg font-bold">Jane Doe</h3>
+                            <p>Expertise: STHSTh</p>
+                            <p>Username: janedoe</p>
+                            <p>Average Rating: 4.7</p>
+                            <p>Contact Info: Phone: +1 (123) 456-7890</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </section>
+    </main>
+
+    <footer class="bg-gray-200 p-4">
+        <section>
+            <h3 class="text-lg font-bold">About this website</h3>
+            <p>This website is made as part of a project Fundamental of Software Engineering Course. It is envisaged by
+                a group of students who wanted to impact our country's education system in a positive way</p>
+        </section>
+    </footer>
+
+</body>
+
+</html>
