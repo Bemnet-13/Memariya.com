@@ -1,67 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Page</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../dist/output.css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
+
 <body class="font-serif">
     <header>
-        <nav class="bg-amber-950 text-white h-20">
-            <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-                <div class="relative flex h-16 items-center justify-between">
-                    <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                        <!-- Mobile menu button-->
-                        <button type="button"
-                            class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                            aria-controls="mobile-menu" aria-expanded="false">
-                            <span class="absolute -inset-0.5"></span>
-                            <span class="sr-only">Open main menu</span>
-                            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                            </svg>
-                            <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-between">
-                        <div class="flex flex-shrink-0 items-center">
-                            <img class="mt-8 h-32 w-auto" src="../logo/memariyacom-logos_transparent.png" alt="Your Company">
-                        </div>
-                        <div>
-                            <h1 class="text-3xl font-bold mt-20 mb-4">Assessment Exam | Python</h1>
-                        </div>
-                    </div>
+        <nav class="bg-custom text-white">
+            <nav class="flex flex-wrap items-center bg-custom text-white justify-center md: justify-between">
+                <div class="flex flex-shrink-0 items-center">
+                    <img class="h-12 self-center md:h-24" src="../logo/memariyacom-logos_transparent.png"
+                        alt="Your Company">
                 </div>
-            </div>
-            </div>
-            </div>
-            <div class="sm:hidden" id="mobile-menu">
-                <div class="space-y-1 px-2 pb-3 pt-2">
-                    <a href="#"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                        aria-current="page">Home</a>
-                    <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
-                        aria-current="page">Dashboard</a>
-                    <a href="#"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Courses</a>
-                    <a href="#"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Quizzes</a>
-                    <a href="#"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Find
-                        Tutors</a>
+                <div>
+                    <h1 class="text-xl font-bold mt-10 mr-4 md:text-2xl">Assessment Exam | Python</h1>
                 </div>
-            </div>
-        </nav>
+            </nav>
     </header>
-    <main class="flex flex-col items-center mt-8">
+    <main class="flex flex-col items-start mt-8">
         <main class="container mx-auto p-6">
-            <section class="ml-40 mb-8">
+            <section class="mb-8">
                 <h2 class="text-2xl text-center font-bold mb-4">Assesment Quiz</h2>
                 <form class="mx-32 mt-8">
                     <!-- Question 1 -->
@@ -76,7 +39,7 @@
                         <input type="radio" id="option4-1" name="question1" class="mx-8">
                         <label for="option4-1">Option 4</label>
                     </fieldset>
-    
+
                     <!-- Question 2 -->
                     <fieldset class="mb-4">
                         <legend class="text-xl font-bold mb-4">2. What is ..........?</legend>
@@ -89,7 +52,7 @@
                         <input type="radio" id="option4-2" name="question2" class="mx-8">
                         <label for="option4-2">Option 4</label>
                     </fieldset>
-    
+
                     <!-- Question 3 -->
                     <fieldset class="mb-4">
                         <legend class="text-xl font-bold mb-4">3. What is ..........?</legend>
@@ -105,50 +68,66 @@
                     <div class="mt-8">
                         <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
                             <div>
-                              <p class="text-lg text-gray-700">
-                                Pages
-                                <span class="font-bold">1</span>
-                                of
-                                <span class="font-bold">3</span>
-                              </p>
+                                <p class="text-lg text-gray-700 m-2">
+                                    Pages
+                                    <span class="font-bold">1</span>
+                                    of
+                                    <span class="font-bold">3</span>
+                                </p>
                             </div>
-                        
-                        <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-evenly">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Next Page</button>
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Start Over</button>    
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Submit</button>
+
+                            <div class="hidden sm:flex flex-wrap sm:flex-1 sm:items-center sm:justify-evenly">
+                                <button type="submit"
+                                    class="bg-custom hover:bg-customdark text-white font-bold mt-2 py-2 px-4 rounded-md">Next
+                                    Page</button>
+                                <button type="submit"
+                                    class="bg-custom hover:bg-customdark text-white font-bold mt-2 py-2 px-4 rounded-md">Start
+                                    Over</button>
+                                <button type="submit"
+                                    class="bg-custom hover:bg-customdark text-white font-bold mt-2 py-2 px-4 rounded-md">Submit</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-8">
-                        <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                          <a href="#" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
-                            <span class="sr-only">Previous</span>
-                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                              <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
-                            </svg>
-                          </a>
-                          <a href="#" aria-current="page" class="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">1</a>
-                          <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">2</a>
-                          <a href="#" class="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex">3</a>
-                          <a href="#" class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
-                            <span class="sr-only">Next</span>
-                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                              <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                            </svg>
-                          </a>
-                        </nav>
-                    </div>
+                        <div class="mt-8">
+                            <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                                <a href="#"
+                                    class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                                    <span class="sr-only">Previous</span>
+                                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                                <a href="#" aria-current="page"
+                                    class="relative z-10 inline-flex items-center bg-custom px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">1</a>
+                                <a href="#"
+                                    class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">2</a>
+                                <a href="#"
+                                    class="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex">3</a>
+                                <a href="#"
+                                    class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                                    <span class="sr-only">Next</span>
+                                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd"
+                                            d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </nav>
+                        </div>
                 </form>
             </section>
-    </main>
-    <footer class="text-center mt-8">
-        <section>
-            <h3 class="text-2xl font-bold">About this website</h3>
-            <p class="text-lg">This website is made as part of a project Fundamental of Software Engineering Course. It
-                is envisaged by
-                a group of students who wanted to impact our country's education system in a positive way</p>
-        </section>
-        <p class="mt-2"><span>© </span>Memariya Education Solutions, 2023</p>
-    </footer>
+        </main>
+        <footer class="text-center mt-8">
+            <section>
+                <h3 class="text-2xl font-bold">About this website</h3>
+                <p class="text-lg">This website is made as part of a project Fundamental of Software Engineering Course.
+                    It
+                    is envisaged by
+                    a group of students who wanted to impact our country's education system in a positive way</p>
+            </section>
+            <p class="mt-2"><span>© </span>Memariya Education Solutions, 2023</p>
+        </footer>
 </body>
+
 </html>
