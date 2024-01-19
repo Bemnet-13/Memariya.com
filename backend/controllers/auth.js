@@ -1,6 +1,7 @@
 const Student = require('../models/Student');
 const Instructor = require('../models/Instructor');
 const {StatusCodes } = require('http-status-codes');
+const {BadRequestError,UnauthenticatedError} = require('../errors');
 
 const register = async (req, res) => { 
     if (req.body.role === 'Instructor') {
@@ -23,7 +24,34 @@ const register = async (req, res) => {
         res.status(StatusCodes.CREATED).json({ student: { id,name: student.name,email: student.email }, token });
     }
 }
-const login = async (req, res) => { }
+
+
+const login = async (req, res) => {
+    const { email, password,role} = req.body;
+    if (!email || !password || !role) {
+        throw new BadRequestError('please provide email and password');
+    }
+    let user
+    if (role === 'Instructor') {
+        user = await Instructor.findOne({ email });
+    } else if (role === 'Student') {
+        user = await Student.findOne({ email });
+    }
+
+    if (!user) {
+        throw new UnauthenticatedError('invalid credentials');
+    }
+
+    const isPasswordCorrect = await user.comparePassword(password);
+    if (!isPasswordCorrect) {
+        throw new UnauthenticatedError('invalid credentials');
+    }
+
+    const token = user.createJWT();
+    res.status(StatusCodes.OK).json({ user: {id:user.id, name: user.name }, token });
+
+
+ }
 
 
 module.exports = {register,login}
