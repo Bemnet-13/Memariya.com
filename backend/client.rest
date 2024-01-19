@@ -1,7 +1,10 @@
 
+### Use Postman to test the endpoints ###
+
 ## -------Auth------##
-## register
-## Inistructor
+
+# register
+### Inistructor ###
 POST http://localhost:3000/api/v1/auth/register Content-Type: application/json
     {
         "name":"test",
@@ -11,7 +14,7 @@ POST http://localhost:3000/api/v1/auth/register Content-Type: application/json
     }
 
 
-## Student
+### Student ###
 POST http://localhost:3000/api/v1/auth/register Content-Type: application/json
     {
         "name":"test",
@@ -21,8 +24,8 @@ POST http://localhost:3000/api/v1/auth/register Content-Type: application/json
     }
 
 
-## Login
-## Inistructor
+# Login
+### Inistructor ###
 POST http://localhost:3000/api/v1/auth/login Content-Type: application/json
     {
         "email":"eba00@gmail.com",
@@ -31,10 +34,23 @@ POST http://localhost:3000/api/v1/auth/login Content-Type: application/json
     }
 
 
-## Student
+### Student ###
 POST http://localhost:3000/api/v1/auth/login Content-Type: application/json
     {
         "email":"eba00@gmail.com",
         "password":"0992ixnc",
         "role":"Student"
     }
+
+
+
+## --------Courses-----##
+
+### Get all courses ###
+GET http://localhost:3000/api/v1/courses/ Content-Type: application/json
+    authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MSwibmFtZSI6InRlc3QiLCJpYXQiOjE3MDU2NTczODEsImV4cCI6MTcwODI0OTM4MX0.NL5qClzKvPKyiCeN_otTMikQiBfmC_SL_YXiD8B-NxQ
+
+### Get single course ###
+#use the id of the course
+GET http://localhost:3000/api/v1/courses/2 Content-Type: application/json
+    authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MSwibmFtZSI6InRlc3QiLCJpYXQiOjE3MDU2NTczODEsImV4cCI6MTcwODI0OTM4MX0.NL5qClzKvPKyiCeN_otTMikQiBfmC_SL_YXiD8B-NxQ

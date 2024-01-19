@@ -15,7 +15,7 @@ const CourseSchema = new mongoose.Schema({
     },
     level: {
         type: String,
-        enum: ['Advanced', 'Expert']
+        enum: ['Beginner','Advanced', 'Intermediate']
     },
 })
 
@@ -64,7 +64,7 @@ TutorSchema.pre('save', async function () {
 })
 
 TutorSchema.methods.createJWT = function () {
-    return jwt.sign({TutorId: this._id, name: this.name}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_LIFETIME})
+    return jwt.sign({Id: this.id, name: this.name}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_LIFETIME})
 }
 
 TutorSchema.methods.comparePassword = async function (canditatePassword) {
