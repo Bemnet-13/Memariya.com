@@ -15,6 +15,7 @@ const CourseSchema = new mongoose.Schema({
     },
     level: {
         type: String,
+        required: [true, 'Please provide Level'] ,
         enum: ['Beginner', 'Advanced', 'Intermediate']
     },
     progress: {
