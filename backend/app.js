@@ -14,6 +14,9 @@ const authRouter = require('./routes/auth');
 const coursesRouter = require('./routes/courses');
 const studentsRouter = require('./routes/students');
 const instructorsRouter = require('./routes/instructors');
+const quizzesRouter = require('./routes/quizzes');
+const finalRouter = require('./routes/finals');
+const assessmentsRouter = require('./routes/assessments');
 
 
 //error handling
@@ -28,6 +31,9 @@ app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/courses', authenticateUser, coursesRouter);
 app.use('/api/v1/students', authenticateUser, studentsRouter);
 app.use('/api/v1/instructors', authenticateUser, instructorsRouter);
+app.use('/api/v1/quizzes', authenticateUser, quizzesRouter);
+app.use('/api/v1/finals', authenticateUser, finalRouter);
+app.use('/api/v1/assessments', authenticateUser, assessmentsRouter);
 
 
 app.use(notFoundMiddleware);

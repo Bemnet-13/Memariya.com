@@ -156,3 +156,55 @@ POST http://localhost:3000/api/v1/instructors/1/courses/
 DELETE http://localhost:3000/api/v1/instructors/1/courses/0
     Content-Type: application/json
     authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MSwibmFtZSI6InRlc3QiLCJpYXQiOjE3MDYzMjUwMjQsImV4cCI6MTcwODkxNzAyNH0.KFHwtomc9kC91jVhzmTkxBkNvUdWzyGN5ohvlz0XjeU
+
+## --------Quizzes-----##
+### getQuiz ###
+# GET http://localhost:3000/api/v1/quizzes?courseId=0&milestone=1
+
+GET http://localhost:3000/api/v1/quizzes?courseId=0&milestone=1
+    Content-Type: application/json
+    authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MSwibmFtZSI6InRlc3QiLCJpYXQiOjE3MDYzMjUwMjQsImV4cCI6MTcwODkxNzAyNH0.KFHwtomc9kC91jVhzmTkxBkNvUdWzyGN5ohvlz0XjeU
+
+### get Quiz Score ###
+# GET http://localhost:3000/api/v1/quizzes?courseId=0&milestone=1
+Post http://localhost:3000/api/v1/quizzes?courseId=0&milestone=1
+    Content-Type: application/json
+    authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MSwibmFtZSI6InRlc3QiLCJpYXQiOjE3MDYzMjUwMjQsImV4cCI6MTcwODkxNzAyNH0.KFHwtomc9kC91jVhzmTkxBkNvUdWzyGN5ohvlz0XjeU
+
+    {
+        "answer":[0,0,1]
+    }
+
+##--------Finals-----##
+### getFinal ###
+# GET http://localhost:3000/api/v1/finals/courseId
+GET http://localhost:3000/api/v1/finals/0
+    Content-Type: application/json
+    authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MSwibmFtZSI6InRlc3QiLCJpYXQiOjE3MDYzMjUwMjQsImV4cCI6MTcwODkxNzAyNH0.KFHwtomc9kC91jVhzmTkxBkNvUdWzyGN5ohvlz0XjeU
+
+### get Final Score ###
+POST http://localhost:3000/api/v1/finals/0
+    Content-Type: application/json
+    authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MSwibmFtZSI6InRlc3QiLCJpYXQiOjE3MDYzMjUwMjQsImV4cCI6MTcwODkxNzAyNH0.KFHwtomc9kC91jVhzmTkxBkNvUdWzyGN5ohvlz0XjeU
+
+    {
+        "answer":[0,0,1,0,0,1,0,0,1]
+    }
+
+##--------Assessment-----##
+### getAssessment ###
+# GET http://localhost:3000/api/v1/assessments/courseId
+GET http://localhost:3000/api/v1/assessments/0
+    Content-Type: application/json
+    authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MSwibmFtZSI6InRlc3QiLCJpYXQiOjE3MDYzMjUwMjQsImV4cCI6MTcwODkxNzAyNH0.KFHwtomc9kC91jVhzmTkxBkNvUdWzyGN5ohvlz0XjeU
+
+### get Assessment Score ###
+# POST http://localhost:3000/api/v1/assessments/courseId
+
+POST http://localhost:3000/api/v1/assessments/0
+    Content-Type: application/json
+    authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MSwibmFtZSI6InRlc3QiLCJpYXQiOjE3MDYzMjUwMjQsImV4cCI6MTcwODkxNzAyNH0.KFHwtomc9kC91jVhzmTkxBkNvUdWzyGN5ohvlz0XjeU
+
+    {
+        "answer":[0,0,1,0,0,1]
+    }
