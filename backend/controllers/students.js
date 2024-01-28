@@ -1,5 +1,7 @@
 const Student = require('../models/Student');
-const {StatusCodes } = require('http-status-codes');
+const { StatusCodes } = require('http-status-codes');
+const {BadRequestError,UnauthenticatedError} = require('../errors');
+
 
 
 
@@ -64,11 +66,31 @@ const deleteCourse = async (req, res) => {
 }    
 
 
-const updateProgress = async (req, res) => { 
+const getProgress = async (req, res) => {
+    const { id, courseId } = req.params;
+    const student = await Student.findOne({ id });
+    if (!student) { 
+        throw new BadRequestError('No student with this id');
+    }
+    const course = student.courses.find((course) => course.id === Number(courseId));
+    if (!course) {
+        throw new BadRequestError('No course with this id');
+    }
+    const progress = course.progress.length/3*100;
+    res.status(StatusCodes.OK).json({progress});
 
 }
+const getCertificate = async (req, res) => { 
+    const student = await Student.findOne({ id: req.user.id });
+    if (!student) { 
+        throw new BadRequestError('No student with this id');
+    }
+    res.status(StatusCodes.OK).json(student.certificate);
+}
 
-
+const rate = async (req, res) => { 
+    res.send('rate');
+}
 
 
 module.exports = {
@@ -77,5 +99,7 @@ module.exports = {
     getAllCourses,
     addCourse,
     deleteCourse,
-    updateProgress
+    getProgress,
+    getCertificate,
+    rate
 };

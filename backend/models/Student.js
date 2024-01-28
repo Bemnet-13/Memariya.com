@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
+const BadgeSchema = require('./Badge')
 
 const CourseSchema = new mongoose.Schema({
     name: {
@@ -19,8 +20,9 @@ const CourseSchema = new mongoose.Schema({
         enum: ['Beginner', 'Advanced', 'Intermediate']
     },
     progress: {
-        type: Number,
-        default: 0
+        type: [Number],
+        enum: [1, 2, 3],
+        default: []
     },
 })
 
@@ -49,7 +51,7 @@ const UserSchema = new mongoose.Schema({
         minlength: 6,
     },
     certificate: {
-        type: [Number],
+        type: [BadgeSchema],
         default: []
     },
     premium: {
@@ -63,11 +65,11 @@ const UserSchema = new mongoose.Schema({
 
 })
 
-UserSchema.pre('save', async function () {
-    const salt = await bcrypt.genSalt(10)
-    this.password = await bcrypt.hash(this.password, salt)
-    // next()
-})
+// UserSchema.pre('save', async function () {
+//     const salt = await bcrypt.genSalt(10)
+//     this.password = await bcrypt.hash(this.password, salt)
+//     // next()
+// })
 
 UserSchema.methods.createJWT = function () {
     return jwt.sign({Id: this.id, name: this.name}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_LIFETIME})

@@ -3,22 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
-
-const CourseSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: [true, 'name must be provided'],
-    },
-    id: {
-        type:Number,
-        required: [true, 'Please provide Course'] ,
-    },
-    level: {
-        type: String,
-        required: [true, 'Please provide Level'] ,
-        enum: ['Beginner','Advanced', 'Intermediate']
-    },
-})
+const BadgeSchema = require('./Badge')
 
 const TutorSchema = new mongoose.Schema({
     id: {
@@ -53,16 +38,16 @@ const TutorSchema = new mongoose.Schema({
         default: 0
     },
     courses: {
-        type: [CourseSchema],
+        type: [BadgeSchema],
         default: []        
     }
 })
 
-TutorSchema.pre('save', async function () {
-    const salt = await bcrypt.genSalt(10)
-    this.password = await bcrypt.hash(this.password, salt)
-    // next()
-})
+// TutorSchema.pre('save', async function () {
+//     const salt = await bcrypt.genSalt(10)
+//     this.password = await bcrypt.hash(this.password, salt)
+//     // next()
+// })
 
 TutorSchema.methods.createJWT = function () {
     return jwt.sign({Id: this.id, name: this.name}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_LIFETIME})

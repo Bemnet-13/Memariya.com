@@ -1,4 +1,5 @@
 const Quiz = require('../models/Quiz');
+const Student = require('../models/Student');
 const {StatusCodes} = require('http-status-codes');
 
 const getQuiz = async (req, res) => {
@@ -23,6 +24,22 @@ const getScore = async (req, res) => {
     for (let i = 0; i < answer.length; i++) {
         if (answer[i] === correctAnswer[i]) {
             score += 1
+        }
+    }
+    if (score === 3) {
+        const student = await Student.findOne({ id: req.user.id });
+        if (student) {
+            const progres = student.courses.map(course => {
+                if (course.id === Number(courseId)) {
+                    if (course.progress.includes(milestone)) {
+                        return course
+                    } else {
+                        course.progress.push(milestone)
+                    }
+                }
+                return course
+            });
+            await student.save();
         }
     }
     res.status(StatusCodes.OK).json({score});
