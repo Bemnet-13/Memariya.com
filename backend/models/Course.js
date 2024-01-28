@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 
+const ratingSchema = require('./Rating')
+
+
 const CourseSchema = new mongoose.Schema({
     id: {
         type: Number,
@@ -24,6 +27,13 @@ const CourseSchema = new mongoose.Schema({
         required: true,
         match: [/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/, 'Invalid download link format'],
     },
+    rating: {
+        type: ratingSchema,
+        default: {
+            users: {},
+            count:0
+        }
+    }
 })
 
 module.exports = mongoose.model('Course', CourseSchema)

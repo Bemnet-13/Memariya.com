@@ -1,4 +1,6 @@
 const Student = require('../models/Student');
+const Instructor = require('../models/Instructor')
+const Course = require('../models/Course');
 const { StatusCodes } = require('http-status-codes');
 const {BadRequestError,UnauthenticatedError} = require('../errors');
 
@@ -88,10 +90,51 @@ const getCertificate = async (req, res) => {
     res.status(StatusCodes.OK).json(student.certificate);
 }
 
-const rate = async (req, res) => { 
+const rateInstructor = async (req, res) => { 
+    const { id } = req.params;
+    let { instructorId, rate } = req.body;
+    if (rate > 5) {
+        rate = 5
+    } else if (rate < 1) {
+        rate = 1
+    }
+    const student = await Student.findOne({id})
+    if (!student) { 
+        throw new BadRequestError('No student with this id');
+    }
+    const instructor = await Instructor.findOne({ id: instructorId })
+    if (!instructor) { 
+        throw new BadRequestError('No instructor with this id');
+    }
     
+    if (instructor.rating.users[id]) {
+        instructor.rating.count -= instructor.rating.users[id]
+    }
+    
+    instructor.rating.users[id] = rate
+    instructor.rating.count += rate
+    await instructor.save();
+
+    const len = Object.keys(instructor.rating.users).length
+   res.status(StatusCodes.OK).json({msg:"rated successfully",rating:instructor.rating, rate:instructor.rating.count/len});
 }
 
+const rate = async (req, res)=>{
+    const { courseId, rate,id } = req.user.rating
+    const course = await Course.findOne({ id: courseId })
+
+    if (course.rating.users[id]) {
+        course.rating.count -= course.rating.users[id]
+    }
+    course.rating.users[id] = rate
+    course.rating.count += rate
+    await course.save();
+
+    const len = Object.keys(course.rating.users).length
+    res.status(StatusCodes.OK).json({msg:"rated successfully",rating:course.rating, rate:course.rating.count/len});
+    
+    
+}
 
 module.exports = {
     getAllStudents,
@@ -101,5 +144,6 @@ module.exports = {
     deleteCourse,
     getProgress,
     getCertificate,
-    rate
+    rate,
+    rateInstructor
 };

@@ -34,7 +34,13 @@ const TutorSchema = new mongoose.Schema({
         minlength: 3,
         maxlength: 50
     },
-    rating: ratingSchema,
+    rating: {
+        type: ratingSchema,
+        default: {
+            users: {},
+            count:0
+        }
+    },
     courses: {
         type: [BadgeSchema],
         default: []        
