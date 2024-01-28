@@ -3,8 +3,44 @@ const { StatusCodes } = require('http-status-codes')
 
 
 const getAllInstructors = async (req, res) => {
+    const {course, level} = req.query
     const instructors = await Instructor.find({})
-    res.status(StatusCodes.OK).json({ instructors, nbHits: instructors.length })
+    let filtered = instructors
+    if (course) {
+        filtered = filtered.filter(instructor => {
+            const courses = instructor.courses
+            const badge = courses.find(badge => {
+                return badge.name === course
+            })
+            if (badge && badge.name) {
+                return badge.name === course
+            }
+            return false
+        })
+    }
+    if (level) {
+        filtered = filtered.filter(instructor => {
+            const courses = instructor.courses
+            const badge = courses.find(badge => {
+                return badge.level === level
+            })
+            if (badge && badge.level) {
+                return badge.level === level
+            }
+            return false
+        })
+    }
+    // filtered = filtered ? filtered : instructors;
+    filtered = filtered.map(instructor => {
+
+        const { name, bio, email, rating } = instructor
+        const len = Object.keys(rating.users).length || 1
+        const rate = rating.count/len
+        return {name, bio, email,rate}
+    })
+    filtered.sort((instructorA, instructorB) => instructorB.rate - instructorA.rate);
+    
+    res.status(StatusCodes.OK).json({ instructors:filtered, nbHits: filtered.length })
 }
 
 const updateInstructor = async (req, res) => { 

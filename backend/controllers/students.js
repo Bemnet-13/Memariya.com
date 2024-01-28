@@ -115,8 +115,8 @@ const rateInstructor = async (req, res) => {
     instructor.rating.count += rate
     await instructor.save();
 
-    const len = Object.keys(instructor.rating.users).length
-   res.status(StatusCodes.OK).json({msg:"rated successfully",rating:instructor.rating, rate:instructor.rating.count/len});
+    const len = Object.keys(instructor.rating.users).length || 1
+   res.status(StatusCodes.OK).json({msg:"rated successfully", rate:instructor.rating.count/len});
 }
 
 const rate = async (req, res)=>{
@@ -130,8 +130,8 @@ const rate = async (req, res)=>{
     course.rating.count += rate
     await course.save();
 
-    const len = Object.keys(course.rating.users).length
-    res.status(StatusCodes.OK).json({msg:"rated successfully",rating:course.rating, rate:course.rating.count/len});
+    const len = Object.keys(course.rating.users).length || 1
+    res.status(StatusCodes.OK).json({msg:"rated successfully", rate:course.rating.count/len});
     
     
 }

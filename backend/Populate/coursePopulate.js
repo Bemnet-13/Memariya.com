@@ -8,5 +8,6 @@ connectDB(process.env.MONGO_URI);
 const populateCourses = async () => { 
     await Course.deleteMany();
     await Course.create(courses);
+    console.log('Course created')
 }
 populateCourses();

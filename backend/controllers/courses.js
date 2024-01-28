@@ -15,8 +15,23 @@ const getCourse = async (req, res) => {
     res.status(StatusCodes.OK).json({ course });
 }
 
+const getRate = async (req, res) => {
+    const id = Number(req.params.id);
+    const course = await Course.findOne({ id });
+    if (!course) {
+        res.status(StatusCodes.NOT_FOUND).json({ msg: `No course with id : ${id}` });
+    }
+    const len = Object.keys(course.rating.users).length || 1
+
+    res.status(StatusCodes.OK).json({ rate:course.rating.count/len});
+
+
+}
+
+
 module.exports = {
     getAllCourses,
-    getCourse
+    getCourse,
+    getRate
 
 }

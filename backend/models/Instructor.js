@@ -31,7 +31,7 @@ const TutorSchema = new mongoose.Schema({
     },
     bio: {
         type: String,
-        minlength: 3,
+        default: '',
         maxlength: 50
     },
     rating: {
