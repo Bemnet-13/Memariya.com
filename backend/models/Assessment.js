@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const QuestionSchema = require('./Question')
 
 const AssessmentSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: [true, 'Please provide id'],
+    name: {
+        type: String,
+        required: [true, 'Please provide name'],
     },
     questions: [QuestionSchema],
     answer: {

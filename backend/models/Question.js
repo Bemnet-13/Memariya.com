@@ -7,8 +7,7 @@ const QuestionSchema = new mongoose.Schema({
     },
     choice: {
         type: [String],
-        required: [true, 'Please provide description'],
-        maxlength: 4
+        required: [true, 'Please provide choices']
     },
 });
 

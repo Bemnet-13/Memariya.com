@@ -1,9 +1,12 @@
 const Assessment = require('../models/Assessment');
 const { StatusCodes } = require('http-status-codes');
+const { BadRequestError, UnauthenticatedError } = require('../errors');
+const Student = require('../models/Student');
+const Course = require('../models/Course');
 
 const getAssessment = async (req, res) => {
-    const { courseId } = req.params;
-    const assessment = await Assessment.findOne({ id: Number(courseId) });
+    const { courseName } = req.params;
+    const assessment = await Assessment.findOne({ name: courseName});
     if (!assessment) {
         return res.status(StatusCodes.NOT_FOUND).json({ msg: 'Assessment not found' });
     }
@@ -11,8 +14,8 @@ const getAssessment = async (req, res) => {
 }
 
 const getScore = async (req, res) => { 
-    const { courseId } = req.params;
-    const assessment = await Assessment.findOne({ id: Number(courseId) });
+    const { courseName } = req.params;
+    const assessment = await Assessment.findOne({ name: courseName});
     if (!assessment) {
         return res.status(StatusCodes.NOT_FOUND).json({ msg: 'Assessment not found' });
     }
@@ -24,7 +27,40 @@ const getScore = async (req, res) => {
             score += 1
         }
     }
-    res.status(StatusCodes.OK).json({score });
+    if (score > 10) {
+
+        const student = await Student.findOne({ id: req.user.id });
+        const course = await Course.findOne({ name: courseName, level: 'Advanced' })
+        console.log(student, course)
+
+        const duplicate = student.courses.find((c) => c.id === course.id);
+        if (!duplicate) {
+            student.courses.push({name: course.name, id: course.id, level: course.level});
+            await student.save();
+        }    
+
+
+    } else if (score > 6) {
+        const student = await Student.findOne({ id: req.user.id });
+        const course = await Course.findOne({ name: courseName, level: 'Intermediate' })
+        const duplicate = student.courses.find((c) => c.id === course.id);
+        if (!duplicate) {
+            student.courses.push({name: course.name, id: course.id, level: course.level});
+            await student.save();
+        }    
+    }
+    else {
+        const student = await Student.findOne({ id: req.user.id });
+        const course = await Course.findOne({ name: courseName, level: 'Beginner' })
+        const duplicate = student.courses.find((c) => c.id === course.id);
+        if (!duplicate) {
+            student.courses.push({name: course.name, id: course.id, level: course.level});
+            await student.save();
+        }    
+    }
+
+
+    res.status(StatusCodes.OK).json({score});
 }
 
 module.exports = {

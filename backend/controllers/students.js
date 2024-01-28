@@ -12,7 +12,7 @@ const getAllStudents = async (req, res) => {
 
 const updateStudent = async (req, res) => { 
     const id = req.params.id;
-    student = await Student.findOneAndUpdate({ id }, req.body, { new: true, runValidators: true });
+    const student = await Student.findOneAndUpdate({ id }, req.body, { new: true, runValidators: true });
     if (!student) { 
         return res.status(StatusCodes.NOT_FOUND).json({ msg: `No student with id : ${id}` });
     }
@@ -89,7 +89,7 @@ const getCertificate = async (req, res) => {
 }
 
 const rate = async (req, res) => { 
-    res.send('rate');
+    
 }
 
 

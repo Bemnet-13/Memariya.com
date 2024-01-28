@@ -12,7 +12,7 @@ const auth = async (req, res, next) => {
     try {
         const payload = jwt.verify(token, process.env.JWT_SECRET);
 
-        req.user = {id:payload.Id, name: payload.name};
+        req.user = {id:payload.Id, name: payload.name,role:payload.role};
         next();
     } catch (error) {
         throw new UnauthenticatedError('Authentication invalid wrong token');

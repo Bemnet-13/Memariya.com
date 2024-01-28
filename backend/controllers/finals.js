@@ -1,5 +1,6 @@
 const Final = require('../models/Final');
 const Student = require('../models/Student');
+const Instructor = require('../models/Instructor');
 const Course = require('../models/Course');
 const { StatusCodes } = require('http-status-codes');
 
@@ -26,7 +27,7 @@ const getScore = async (req, res) => {
             score += 1
         }
     }
-    if (score === 9) {
+    if (score === 9 && req.user.role === 'Student') {
         const student = await Student.findOne({ id: req.user.id });
         if (student) {
             const badge = student.certificate.find(badge => badge.id === Number(courseId))
@@ -34,6 +35,16 @@ const getScore = async (req, res) => {
                 const course = await Course.findOne({ id: Number(courseId) })
                 student.certificate.push({ id: Number(courseId), name: course.name, level: course.level })
                 await student.save();
+            }
+        }
+    } else if (score === 9 && req.user.role === 'Instructor') {
+        const instructor = await Instructor.findOne({ id: req.user.id });
+        if (instructor) {
+            const badge = instructor.courses.find(badge => badge.id === Number(courseId))
+            if (!badge) {
+                const course = await Course.findOne({ id: Number(courseId) })
+                instructor.courses.push({ id: Number(courseId), name: course.name, level: course.level })
+                await instructor.save();
             }
         }
     }

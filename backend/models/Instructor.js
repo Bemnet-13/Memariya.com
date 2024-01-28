@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
 const BadgeSchema = require('./Badge')
+const ratingSchema = require('./Rating')
 
 const TutorSchema = new mongoose.Schema({
     id: {
@@ -33,10 +34,7 @@ const TutorSchema = new mongoose.Schema({
         minlength: 3,
         maxlength: 50
     },
-    rating: {
-        type: Number,
-        default: 0
-    },
+    rating: ratingSchema,
     courses: {
         type: [BadgeSchema],
         default: []        
@@ -50,7 +48,7 @@ const TutorSchema = new mongoose.Schema({
 // })
 
 TutorSchema.methods.createJWT = function () {
-    return jwt.sign({Id: this.id, name: this.name}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_LIFETIME})
+    return jwt.sign({Id: this.id, name: this.name,role:"Instructor"}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_LIFETIME})
 }
 
 TutorSchema.methods.comparePassword = async function (canditatePassword) {
