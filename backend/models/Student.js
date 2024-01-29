@@ -65,11 +65,10 @@ const UserSchema = new mongoose.Schema({
 
 })
 
-// UserSchema.pre('save', async function () {
-//     const salt = await bcrypt.genSalt(10)
-//     this.password = await bcrypt.hash(this.password, salt)
-//     // next()
-// })
+UserSchema.methods.hashPassword  =async function () {
+    const salt = await bcrypt.genSalt(10)
+    this.password = await bcrypt.hash(this.password, salt)
+}
 
 UserSchema.methods.createJWT = function () {
     return jwt.sign({Id: this.id, name: this.name,role:"Student"}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_LIFETIME})

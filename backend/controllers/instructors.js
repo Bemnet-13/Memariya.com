@@ -1,5 +1,6 @@
 const Instructor = require('../models/Instructor')
 const { StatusCodes } = require('http-status-codes')
+const {BadRequestError,UnauthenticatedError, NotFoundError} = require('../errors');
 
 
 const getAllInstructors = async (req, res) => {
@@ -32,7 +33,6 @@ const getAllInstructors = async (req, res) => {
     }
     // filtered = filtered ? filtered : instructors;
     filtered = filtered.map(instructor => {
-
         const { name, bio, email, rating } = instructor
         const len = Object.keys(rating.users).length || 1
         const rate = rating.count/len
@@ -44,30 +44,22 @@ const getAllInstructors = async (req, res) => {
 }
 
 const updateInstructor = async (req, res) => { 
-    const id = req.params.id;
-    const instructor = await Instructor.findOneAndUpdate({ id }, req.body, { new: true, runValidators: true });
-    if (!instructor) { 
-        return res.status(StatusCodes.NOT_FOUND).json({ msg: `No instructor with id : ${id}` });
-    }
+    const { name, bio, email } = req.body;
+    const instructor = req.user.instructor;
+    if (name) instructor.name = name;
+    if (bio) instructor.bio = bio;
+    if (email) instructor.email = email;
+    await instructor.save();
     res.status(StatusCodes.OK).json(instructor);
 }
 
 const getAllCourses = async (req, res) => { 
-    const { id } = req.params;
-    const instructor = await Instructor.findOne({ id });
-    if (!instructor) { 
-        return res.status(StatusCodes.NOT_FOUND).json({ msg: `No instructor with id : ${id}` });
-    }
+    const instructor = req.user.instructor;
     res.status(StatusCodes.OK).json(instructor.courses);
 }
 const addCourse = async (req, res) => { 
-    const { id } = req.params;
+    const instructor = req.user.instructor;
     const course = req.body;
-    
-    const instructor = await Instructor.findOne({ id });
-    if (!instructor) { 
-        return res.status(StatusCodes.NOT_FOUND).json({ msg: `No instructor with id : ${id}` });
-    }
     const duplicate = instructor.courses.find((c) => c.id === course.id);
     if (!duplicate) {
         instructor.courses.push(course);
@@ -77,16 +69,12 @@ const addCourse = async (req, res) => {
 }
 
 const deleteCourse = async (req, res) => { 
-    const { instructorId, courseId} = req.params;
-    
-    const instructor = await Instructor.findOne({id: instructorId });
-    if (!instructor) { 
-        return res.status(StatusCodes.NOT_FOUND).json({ msg: `No instructor with id : ${instructorId}` });
-    }
+    const {courseId} = req.params;
+    const instructor = req.user.instructor;
+
     const course = instructor.courses.find((course) => course.id === Number(courseId));
-    console.log(instructor.courses);
     if (!course) {
-        return res.status(StatusCodes.NOT_FOUND).json({ msg: `No course with id : ${courseId}` });
+        throw new NotFoundError(`No course with id : ${courseId}`);
     }
     const courses = instructor.courses.filter((course) => course.id !== Number(courseId));
     instructor.courses = courses;

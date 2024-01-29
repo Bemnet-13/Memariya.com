@@ -31,7 +31,7 @@ const getScore = async (req, res) => {
 
         const student = await Student.findOne({ id: req.user.id });
         const course = await Course.findOne({ name: courseName, level: 'Advanced' })
-        console.log(student, course)
+        // console.log(student, course)
 
         const duplicate = student.courses.find((c) => c.id === course.id);
         if (!duplicate) {

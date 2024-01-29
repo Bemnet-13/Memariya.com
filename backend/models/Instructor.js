@@ -47,11 +47,11 @@ const TutorSchema = new mongoose.Schema({
     }
 })
 
-// TutorSchema.pre('save', async function () {
-//     const salt = await bcrypt.genSalt(10)
-//     this.password = await bcrypt.hash(this.password, salt)
-//     // next()
-// })
+TutorSchema.methods.hashPassword  = async function () {
+    const salt = await bcrypt.genSalt(10)
+    this.password = await bcrypt.hash(this.password, salt)
+    this.save()
+}
 
 TutorSchema.methods.createJWT = function () {
     return jwt.sign({Id: this.id, name: this.name,role:"Instructor"}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_LIFETIME})

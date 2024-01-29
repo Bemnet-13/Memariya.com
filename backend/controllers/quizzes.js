@@ -1,12 +1,13 @@
 const Quiz = require('../models/Quiz');
 const Student = require('../models/Student');
+const {BadRequestError,UnauthenticatedError, NotFoundError} = require('../errors');
 const {StatusCodes} = require('http-status-codes');
 
 const getQuiz = async (req, res) => {
     const { courseId, milestone } = req.query;
     const quiz = await Quiz.findOne({ id: Number(courseId), milestone });
     if (!quiz) {
-        return res.status(404).json({ error: 'Quiz not found' });
+        throw new NotFoundError('Quiz not found');
     }
     const questions = quiz.questions
     res.status(StatusCodes.OK).json(questions);
@@ -15,14 +16,14 @@ const getQuiz = async (req, res) => {
 const getScore = async (req, res) => {
     const { courseId, milestone } = req.query;
     const {answer} = req.body;
-    const quiz = await Quiz.findOne({ id: Number(courseId), milestone });
+    const quiz = await Quiz.findOne({ id: Number(courseId), milestone: Number(milestone) });
     if (!quiz) {
-        return res.status(404).json({ error: 'Quiz not found' });
+        throw new NotFoundError('Quiz not found');
     }
     const correctAnswer = quiz.answer
     let score = 0
     for (let i = 0; i < answer.length; i++) {
-        if (answer[i] === correctAnswer[i]) {
+        if (Number(answer[i]) === Number(correctAnswer[i])) {
             score += 1
         }
     }
@@ -42,8 +43,9 @@ const getScore = async (req, res) => {
             await student.save();
         }
     }
-    res.status(StatusCodes.OK).json({score});
+    res.status(StatusCodes.OK).json(score);
 }
+
 
 module.exports = {
     getQuiz,

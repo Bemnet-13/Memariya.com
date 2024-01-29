@@ -2,33 +2,27 @@ const Final = require('../models/Final');
 const Student = require('../models/Student');
 const Instructor = require('../models/Instructor');
 const Course = require('../models/Course');
+const {BadRequestError,UnauthenticatedError, NotFoundError} = require('../errors');
 const { StatusCodes } = require('http-status-codes');
 
 const getFinal = async (req, res) => {
-    const { courseId } = req.params;
-    const final = await Final.findOne({ id: Number(courseId) });
-    if (!final) {
-        return res.status(StatusCodes.NOT_FOUND).json({ msg: 'Final not found' });
-    }
+    const final = req.user.final
     res.status(StatusCodes.OK).json( final.questions);
  }
 
 const getScore = async (req, res) => { 
     const { courseId } = req.params;
-    const final = await Final.findOne({ id: Number(courseId) });
-    if (!final) {
-        return res.status(StatusCodes.NOT_FOUND).json({ msg: 'Final not found' });
-    }
+    const final = req.user.final
     const { answer } = req.body;
     const correctAnswer = final.answer
     let score = 0
     for (let i = 0; i < answer.length; i++) {
-        if (answer[i] === correctAnswer[i]) {
+        if (Number(answer[i] )=== correctAnswer[i]) {
             score += 1
         }
     }
-    if (score === 9 && req.user.role === 'Student') {
-        const student = await Student.findOne({ id: req.user.id });
+    if (score > 7 && req.user.role === 'Student') {
+        const student = req.user.student
         if (student) {
             const badge = student.certificate.find(badge => badge.id === Number(courseId))
             if (!badge) {
@@ -37,8 +31,8 @@ const getScore = async (req, res) => {
                 await student.save();
             }
         }
-    } else if (score === 9 && req.user.role === 'Instructor') {
-        const instructor = await Instructor.findOne({ id: req.user.id });
+    } else if (score > 7 && req.user.role === 'Instructor') {
+        const instructor = req.user.instructor
         if (instructor) {
             const badge = instructor.courses.find(badge => badge.id === Number(courseId))
             if (!badge) {
@@ -48,7 +42,7 @@ const getScore = async (req, res) => {
             }
         }
     }
-    res.status(StatusCodes.OK).json({score });
+    res.status(StatusCodes.OK).json(score);
 }
 
 module.exports = {

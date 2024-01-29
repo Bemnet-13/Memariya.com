@@ -8,6 +8,7 @@ const connectDB = require('./db/connect');
 
 // Middleware
 const authenticateUser = require('./middleware/authentication');
+const studentAuthentication = require('./middleware/studentAuthentication');
 
 // Routes
 const authRouter = require('./routes/auth');
@@ -29,9 +30,9 @@ app.use(express.json());
 // routes
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/courses', authenticateUser, coursesRouter);
-app.use('/api/v1/students', authenticateUser, studentsRouter);
+app.use('/api/v1/students', authenticateUser,studentAuthentication, studentsRouter);
 app.use('/api/v1/instructors', authenticateUser, instructorsRouter);
-app.use('/api/v1/quizzes', authenticateUser, quizzesRouter);
+app.use('/api/v1/quizzes', authenticateUser,studentAuthentication, quizzesRouter);
 app.use('/api/v1/finals', authenticateUser, finalRouter);
 app.use('/api/v1/assessments', authenticateUser, assessmentsRouter);
 

@@ -6,8 +6,12 @@ require('dotenv').config();
 connectDB(process.env.MONGO_URI);
 
 const populateinstructors = async () => { 
-    try{await Instructor.deleteMany();
-        await Instructor.create(instructors);
+    try {
+        await Instructor.deleteMany();
+        for (let instructor of instructors) {
+            let newInstructor = await Instructor.create(instructor);
+            await newInstructor.hashPassword();
+        }
         console.log('instructors created');
     }
     catch(error){
