@@ -1,8 +1,11 @@
+const token = localStorage.getItem('token')
+const user = JSON.parse(localStorage.getItem('user'));
+
+const id = user.id;
+
 const displayTutorsBtn = document.getElementById('displayTutorsBtn');
 const tutorsContainer = document.getElementById('tutorsContainer');
-const token = localStorage.getItem('token') || 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6MSwibmFtZSI6InRlc3QyIiwicm9sZSI6IlN0dWRlbnQiLCJpYXQiOjE3MDY1Mjc2ODQsImV4cCI6MTcwOTExOTY4NH0.pZTbZV_nt_Oyewqyatz-IB4zonb4po_IAK_P9jmtnqM'
-const id = localStorage.getItem('id') || 1;
-console.log(tutorsContainer.innerHTML);
+
 const premium = async () => {
     try {
         const response = await fetch(`http://localhost:3000/api/v1/students/${id}/premium`, {
@@ -13,7 +16,7 @@ const premium = async () => {
             },
         })
         const data = await response.json();
-        console.log(data,typeof data);
+        // console.log(data,typeof data);
         if (response.status !== 200 ) {
             alert(data.msg);
             premium()
