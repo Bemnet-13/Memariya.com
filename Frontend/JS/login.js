@@ -56,21 +56,21 @@ async function login(event) {
         const data = await response.json();
         if (response.status === 200) {
             localStorage.setItem('token', `Bearer ${data.token}`);
+            const user = data.user;
+            localStorage.setItem('user', JSON.stringify(user));
 
             if (role === "Student") {
                 window.location.href = "../Html/dashboard-student.html";
             } else {
                 window.location.href = "../Html/dashboard-instructor.html";
             }
-        }
-    } catch (error) {
-        if (error instanceof TypeError && error.message.includes('Network request failed')) {
-            alert('Network error. Please check your internet connection.');
         } else {
-            const errorMessage = error.message || 'An unknown error occurred.';
-            alert(`Please carefully enter your credentials.`);
+            throw new Error(data.msg)
         }
-        window.location.href = '../login.html';
+
+    } catch (error) {
+        alert(error.message)
+        window.location.href = './log-in.html';
     }
     
 }
